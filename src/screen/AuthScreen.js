@@ -102,7 +102,7 @@ const AuthScreen = ({ navigation }) => {
             password={true}
             secureTextEntry={true}
           />
-          <ButtonComponent label="Login" onPress={() => {}} />
+          <ButtonComponent label="Login" onPress={() => navigation.navigate('Entries')} />
         </View>
       </KeyboardAvoidingView>
   );

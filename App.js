@@ -5,6 +5,7 @@ import AuthScreen from './src/screen/AuthScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import colors from './src/config/colors';
+import EntriesScreen from './src/screen/EntriesScreen';
 
 const MyTheme = {
   ...DefaultTheme,
@@ -21,6 +22,7 @@ export default function App() {
     <NavigationContainer style={styles}>
       <Stack.Navigator initialRouteName="Login" headerMode="none">
         <Stack.Screen name="Login" component={AuthScreen} />
+        <Stack.Screen name="Entries" component={EntriesScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
