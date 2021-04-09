@@ -4,12 +4,17 @@ import colors from "../config/colors";
 
 // We support all the TextInput props
 
-
-const FormTextInput = ({ term, onTermChange, onTermSubmit, placeholder, additionalStyle, ...otherProps }) =>  {
-
-  
-    return (
-      <TextInput
+const SquareTextInput = ({
+  term,
+  onTermChange,
+  onTermSubmit,
+  placeholder,
+  additionalStyle,
+  height,
+  ...otherProps
+}) => {
+  return (
+    <TextInput
       autoCapitalize="none"
       autoCorrect={false}
       placeholder={placeholder}
@@ -17,23 +22,25 @@ const FormTextInput = ({ term, onTermChange, onTermSubmit, placeholder, addition
       onChangeText={(newTerm) => onTermChange(newTerm)}
       style={styles.inputStyle}
       onEndEditing={() => {
-          onTermSubmit()
+        onTermSubmit();
       }}
-        style={[styles.textInput, additionalStyle]}
-        {...otherProps}
-      />
-    );
-  
-}
+      style={[styles.textInput, additionalStyle]}
+      {...otherProps}
+      multiline={true}
+    />
+  );
+};
 
 const styles = StyleSheet.create({
   textInput: {
-    height: 40,
+    //height: 40,
     borderColor: colors.WHITE,
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    //borderBottomWidth: StyleSheet.hairlineWidth,
     marginBottom: 20,
-    color: colors.DARK_GREY
-  }
+    color: colors.DARK_GREY,
+    backgroundColor : colors.DARKER_PINK,
+    padding: 8,
+  },
 });
 
-export default FormTextInput;
+export default SquareTextInput;

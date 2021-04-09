@@ -23,88 +23,253 @@ const EntriesScreen = ({ navigation }) => {
     // { id: "9", entry: "Today I had a good day." },
   ]);
 
+  myjson = [
+    {
+      id: "1",
+      answers: [
+        {
+          id: "3",
+          question: {
+            id: "1",
+            text: "How was your day?",
+          },
+          answer: "cv",
+          date: "2020/34/67",
+          modifiedAt: "...",
+        },
+      ],
+      title: "Entry title !",
+      content: "I had a good day today !",
+      date: "27/06/2014",
+      modifiedAt: null,
+      deletedAt: null,
+    },
+    {
+      id: "2",
+      answers: [
+        {
+          id: "3",
+          question: {
+            id: "1",
+            text: "How was your day?",
+          },
+          answer: "cv",
+          date: "2020/34/67",
+          modifiedAt: "...",
+        },
+      ],
+      title: "Entry title !",
+      content: "I had a good day today !",
+      date: "27/06/2014",
+      modifiedAt: null,
+      deletedAt: null,
+    },
+    {
+      id: "3",
+      answers: [
+        {
+          id: "3",
+          question: {
+            id: "1",
+            text: "How was your day?",
+          },
+          answer: "cv",
+          date: "2020/34/67",
+          modifiedAt: "...",
+        },
+      ],
+      title: "Entry title !",
+      content: "I had a good day today !",
+      date: "27/06/2014",
+      modifiedAt: null,
+      deletedAt: null,
+    },
+    {
+      id: "4",
+      answers: [
+        {
+          id: 3,
+          question: {
+            id: "1",
+            text: "How was your day?",
+          },
+          answer: "cv",
+          date: "2020/34/67",
+          modifiedAt: "...",
+        },
+      ],
+      title: "Entry title !",
+      content: "I had a good day today !",
+      date: "27/06/2014",
+      modifiedAt: null,
+      deletedAt: null,
+    },
+    {
+      id: "5",
+      answers: [
+        {
+          id: "3",
+          question: {
+            id: "1",
+            text: "How was your day?",
+          },
+          answer: "cv",
+          date: "2020/34/67",
+          modifiedAt: "...",
+        },
+      ],
+      title: "Entry title !",
+      content: "I had a good day today !",
+      date: "27/06/2014",
+      modifiedAt: null,
+      deletedAt: null,
+    },
+    {
+      id: "6",
+      answers: [
+        {
+          id: "3",
+          question: {
+            id: "1",
+            text: "How was your day?",
+          },
+          answer: "cv",
+          date: "2020/34/67",
+          modifiedAt: "...",
+        },
+      ],
+      title: "Entry title !",
+      content: "I had a good day today !",
+      date: "27/06/2014",
+      modifiedAt: null,
+      deletedAt: null,
+    },
+    {
+      id: "7",
+      answers: [
+        {
+          id: "3",
+          question: {
+            id: "1",
+            text: "How was your day?",
+          },
+          answer: "cv",
+          date: "2020/34/67",
+          modifiedAt: "...",
+        },
+      ],
+      title: "Entry title !",
+      content: "I had a good day today !",
+      date: "27/06/2014",
+      modifiedAt: null,
+      deletedAt: null,
+    },
+    {
+      id: "8",
+      answers: [
+        {
+          id: 3,
+          question: {
+            id: "1",
+            text: "How was your day?",
+          },
+          answer: "cv",
+          date: "2020/34/67",
+          modifiedAt: "...",
+        },
+      ],
+      title: "Entry title !",
+      content: "I had a good day today !",
+      date: "27/06/2014",
+      modifiedAt: null,
+      deletedAt: null,
+    },
+    {
+      id: "10",
+      answers: [
+        {
+          id: "3",
+          question: {
+            id: "1",
+            text: "How was your day?",
+          },
+          answer: "cv",
+          date: "2020/34/67",
+          modifiedAt: "...",
+        },
+      ],
+      title: "Entry title !",
+      content: "I had a good day today !",
+      date: "27/06/2014",
+      modifiedAt: null,
+      deletedAt: null,
+    },
+    {
+      id: "11",
+      answers: [
+        {
+          id: "3",
+          question: {
+            id: "1",
+            text: "How was your day?",
+          },
+          answer: "cv",
+          date: "2020/34/67",
+          modifiedAt: "...",
+        },
+      ],
+      title: "Entry title !",
+      content: "I had a good day today !",
+      date: "27/06/2014",
+      modifiedAt: null,
+      deletedAt: null,
+    },
+    {
+      id: "12",
+      answers: [
+        {
+          id: "3",
+          question: {
+            id: "1",
+            text: "How was your day?",
+          },
+          answer: "cv",
+          date: "2020/34/67",
+          modifiedAt: "...",
+        },
+      ],
+      title: "Entry title !",
+      content: "I had a good day today !",
+      date: "27/06/2014",
+      modifiedAt: null,
+      deletedAt: null,
+    },
+    {
+      id: "13",
+      answers: [
+        {
+          id: 3,
+          question: {
+            id: "1",
+            text: "How was your day?",
+          },
+          answer: "cv",
+          date: "2020/34/67",
+          modifiedAt: "...",
+        },
+      ],
+      title: "Entry title !",
+      content: "I had a good day today !",
+      date: "27/06/2014",
+      modifiedAt: null,
+      deletedAt: null,
+    },
+  ];
+
   // // reset login status
   useEffect(() => {
-    
-    setEntries([
-        { id: "1", entry: "Today I had a good day." },
-        { id: "2", entry: "Today I had a good day." },
-        { id: "3", entry: "Today I had a good day." },
-        { id: "4", entry: "Today I had a good day." },
-        { id: "5", entry: "Today I had a good day." },
-        { id: "6", entry: "Today I had a good day." },
-        { id: "7", entry: "Today I had a good day." },
-        { id: "8", entry: "Today I had a good day." },
-        { id: "9", entry: "Today I had a good day." },
-        { id: "10", entry: "Today I had a good day." },
-        { id: "20", entry: "Today I had a good day." },
-        { id: "30", entry: "Today I had a good day." },
-        { id: "40", entry: "Today I had a good day." },
-        { id: "50", entry: "Today I had a good day." },
-        { id: "60", entry: "Today I had a good day." },
-        { id: "70", entry: "Today I had a good day." },
-        { id: "80", entry: "Today I had a good day." },
-        { id: "90", entry: "Today I had a good day." },
-      ]);
+    setEntries(myjson);
   }, []);
-
-  // handleLoginPress = () => {
-  //   console.log("Login button pressed");
-
-  //   setSubmitted(true);
-  //   if (email && password) {
-  //     dispatch(loadingActions.startLoading());
-  //     dispatch(userActions.login(email, password)).then(
-  //       (response) => {
-  //         switch (response.role) {
-  //           case "consultant":
-  //             const resetAction1 = StackActions.reset({
-  //               index: 0,
-  //               actions: [NavigationActions.navigate({ routeName: "Home" })],
-  //             });
-  //             navigation.dispatch(resetAction1);
-  //             break;
-  //           case "trainer":
-  //             const resetAction = StackActions.reset({
-  //               index: 0,
-  //               actions: [
-  //                 NavigationActions.navigate({ routeName: "HomeTrainer" }),
-  //               ],
-  //             });
-  //             navigation.dispatch(resetAction);
-  //             break;
-  //           case "jury":
-  //             const resetActionJ = StackActions.reset({
-  //               index: 0,
-  //               actions: [
-  //                 NavigationActions.navigate({ routeName: "HomeJury" }),
-  //               ],
-  //             });
-  //             navigation.dispatch(resetActionJ);
-  //             break;
-  //           case "both":
-  //             const resetActionB = StackActions.reset({
-  //               index: 0,
-  //               actions: [
-  //                 NavigationActions.navigate({ routeName: "HomeBoth" }),
-  //               ],
-  //             });
-  //             navigation.dispatch(resetActionB);
-  //             break;
-  //           default:
-  //             console.log(response.role);
-  //         }
-  //         //navigation.navigate('Home');
-  //       },
-  //       (error) => {
-  //         console.log(error);
-  //         dispatch(loadingActions.stopLoading());
-  //       }
-  //     );
-  //   }
-
-  //   //navigation.navigate("Home");
-  // };
 
   return (
     <View style={[styles.contenu]}>
@@ -114,18 +279,25 @@ const EntriesScreen = ({ navigation }) => {
           Your entries
         </Text> */}
       </View>
-
+      <ButtonComponent
+        label="+ Create an entry"
+        onPress={() => navigation.navigate("Entry")}
+      />
       <View style={styles.form}>
-      <FlatList
-            data={entries}
-            keyExtractor={(entry) => entry.id}
-            persistentScrollbar={true}
-            renderItem={({item}) => {
-                //console.log(item);
-            return  <ButtonComponent label={item.entry} onPress={() => navigation.navigate('Entries')} />
-
-            }}
-          />
+        <FlatList
+          data={entries}
+          keyExtractor={(entry) => entry.id}
+          persistentScrollbar={true}
+          renderItem={({ item }) => {
+            let label = item.title + " [" + item.date + "]";
+            return (
+              <ButtonComponent
+                label={label}
+                onPress={() => navigation.navigate("Entry")}
+              />
+            );
+          }}
+        />
       </View>
     </View>
   );

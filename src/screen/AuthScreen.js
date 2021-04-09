@@ -16,7 +16,7 @@ import imageLogo from "../../assets/quester_flower_transparent.png";
 // import { loadingActions } from "../actions/loadingActions";
 
 const AuthScreen = ({ navigation }) => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
@@ -88,11 +88,11 @@ const AuthScreen = ({ navigation }) => {
         <Image source={imageLogo} style={styles.logo} />
         <View style={styles.form}>
           <FormTextInput
-            term={email}
-            onTermChange={(newTerm) => setEmail(newTerm)}
+            term={username}
+            onTermChange={(newTerm) => setUsername(newTerm)}
             onTermSubmit={() => {}}
-            placeholder="Email"
-            keyboardType="email-address"
+            placeholder="Username"
+            // keyboardType="username-address"
           />
           <FormTextInput
             term={password}
