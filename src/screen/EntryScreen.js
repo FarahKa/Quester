@@ -8,6 +8,7 @@ import SquareTextInput from "../components/SquareTextInputComponent";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import ButtonComponent from "../components/ButtonComponent";
+import * as SecureStore from 'expo-secure-store';
 
 const EntryScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -16,7 +17,24 @@ const EntryScreen = ({ navigation }) => {
   const [entry, setEntry] = useState("");
 
   // // reset login status
-  useEffect(() => {}, []);
+  useEffect(() => {
+    navigation.addListener("focus", () => {
+      //check on init
+      //if pwd exists redirect to  authscreen
+      let result = SecureStore.getItemAsync("pwd").then(
+        (result) => {
+          if (result) {
+            alert(" Here's your value \n" + result);
+          } else {
+            alert("No values stored under that key.");
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    });
+  }, []);
 
   return (
     <KeyboardAvoidingView style={[styles.contenu]}>
