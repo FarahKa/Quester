@@ -7,10 +7,9 @@ import FormTextInput from "../components/FormTextInputComponent";
 import imageLogo from "../../assets/quester_journal_transparent_bare.png";
 import { FlatList } from "react-native-gesture-handler";
 
+import db from "../Database";
+
 const EntriesScreen = ({ navigation }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [submitted, setSubmitted] = useState(false);
   const [entries, setEntries] = useState([
     // { id: "1", entry: "Today I had a good day." },
     // { id: "2", entry: "Today I had a good day." },
@@ -268,7 +267,25 @@ const EntriesScreen = ({ navigation }) => {
 
   // // reset login status
   useEffect(() => {
-    setEntries(myjson);
+    db.transaction((tx) => {
+      tx.executeSql(
+        `select * from entries;`,
+        [],
+        (_, { rows: { _array } }) => {
+          //setPassword(_array[0])
+          if (_array[0]) {
+            console.log("entries:")
+            console.log(_array)
+            setEntries(_array)
+          } else {
+            navigation.navigate("Entry");
+          }
+        },
+        (_, error) => {
+          console.log(error);
+        }
+      );
+    });
   }, []);
 
   return (
@@ -286,10 +303,10 @@ const EntriesScreen = ({ navigation }) => {
       <View style={styles.form}>
         <FlatList
           data={entries}
-          keyExtractor={(entry) => entry.id}
+          keyExtractor={(entry) => String(entry.id)}
           persistentScrollbar={true}
           renderItem={({ item }) => {
-            let label = item.title + " [" + item.date + "]";
+            let label = item.title;
             return (
               <ButtonComponent
                 label={label}

@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Image, KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import colors, { dimmer } from "../config/colors";
 import imageLogo from "../../assets/quester_journal_transparent_bare.png";
@@ -8,33 +14,48 @@ import SquareTextInput from "../components/SquareTextInputComponent";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import ButtonComponent from "../components/ButtonComponent";
-import * as SecureStore from 'expo-secure-store';
+//import * as SecureStore from 'expo-secure-store';
+
+// import * as SQLite from "expo-sqlite";
+// //opening the sqlite database
+// const db = SQLite.openDatabase("quester.db");
+import db from "../Database";
 
 const EntryScreen = ({ navigation }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [title, setTitle] = useState("");
   const [entry, setEntry] = useState("");
 
-  // // reset login status
-  useEffect(() => {
-    navigation.addListener("focus", () => {
-      //check on init
-      //if pwd exists redirect to  authscreen
-      let result = SecureStore.getItemAsync("pwd").then(
-        (result) => {
-          if (result) {
-            alert(" Here's your value \n" + result);
-          } else {
-            alert("No values stored under that key.");
-          }
+  // // // reset login status
+  // useEffect(() => {
+  //   navigation.addListener("focus", () => {
+  //     //check on init
+  //     //if pwd exists redirect to  authscreen
+
+  //   });
+  // }, []);
+
+  handleSavePress = () => {
+    console.log("save pressed");
+    //hash password
+    console.log("title is:" + title);
+    console.log("entry is:" + entry);
+    //save hash in database
+    db.transaction((tx) => {
+      tx.executeSql(
+        `insert into entries (title, entry) values ( ?, ? );`,
+        [title, entry],
+        (_, { rows: { _array } }) => {
+          //console.log("pass should be inserted as " + hash);
+          console.log(_array)
+          console.log("success")
+          navigation.navigate("Entries");
         },
-        (error) => {
-          console.log(error);
-        }
+        (_, error) => {console.log(error)}
       );
     });
-  }, []);
+
+    //
+  };
 
   return (
     <KeyboardAvoidingView style={[styles.contenu]}>
@@ -43,8 +64,8 @@ const EntryScreen = ({ navigation }) => {
       </View>
       <View style={styles.form}>
         <SquareTextInput
-          term={entry}
-          onTermChange={(newTerm) => setEntry(newTerm)}
+          term={title}
+          onTermChange={(newTerm) => setTitle(newTerm)}
           onTermSubmit={() => {}}
           placeholder="Title..."
           additionalStyle={{ height: 40 }}
@@ -54,9 +75,9 @@ const EntryScreen = ({ navigation }) => {
           onTermChange={(newTerm) => setEntry(newTerm)}
           onTermSubmit={() => {}}
           placeholder="Entry..."
-          additionalStyle={{ height: 80, textAlignVertical: "top" }}
+          additionalStyle={{ height: 200, textAlignVertical: "top" }}
         />
-        <View style={styles.question}>
+        {/* <View style={styles.question}>
           <View style={styles.question_close}>
             <Text style={{ width: "90%" }}>
               What positive thing can you say about your day?
@@ -95,10 +116,10 @@ const EntryScreen = ({ navigation }) => {
             placeholder="Answer..."
             additionalStyle={{ height: 80, textAlignVertical: "top" }}
           />
-        </View>
+        </View> */}
         <ButtonComponent
           label="Save"
-          onPress={() => navigation.navigate("Entries")}
+          onPress={() => handleSavePress()}
         />
       </View>
     </KeyboardAvoidingView>

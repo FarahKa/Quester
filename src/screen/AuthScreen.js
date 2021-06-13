@@ -5,15 +5,54 @@ import colors, { dimmer } from "../config/colors";
 import ButtonComponent from "../components/ButtonComponent";
 import FormTextInput from "../components/FormTextInputComponent";
 import imageLogo from "../../assets/quester_flower_transparent.png";
-import * as SecureStore from 'expo-secure-store';
-import { CONSTANTS } from 'react-native-hash';
+import { CONSTANTS, JSHash } from "react-native-hash";
+
+// import * as SQLite from "expo-sqlite";
+// //opening the sqlite database
+// const db = SQLite.openDatabase("quester.db");
+import db from "../Database";
 
 const AuthScreen = ({ navigation }) => {
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [submitted, setSubmitted] = useState(false);
 
+  handleLoginPress = () => {
+    console.log("login pressed");
+    //hash password
+    JSHash(password, CONSTANTS.HashAlgorithms.sha256)
+      .then((hash) => {
+        console.log("hash=" + hash);
+        //check if database hash is the same as input hash
+        //1 get database hash
+        //2 check against it
+        db.transaction((tx) => {
+          tx.executeSql(
+            `select * from passwords;`,
+            [],
+            (_, { rows: { _array } }) => {
+              //setPassword(_array[0])
+              if (_array[0]) {
+                console.log("end of transaction getting passwords");
+                console.log(_array[0]);
+                console.log("checking against hash")
+                if(hash == _array[0].password){
+                  navigation.navigate("Entries");
+                } else {
+                  alert("Wrong password input. Please try again.")
+                }
+              } else {
+                navigation.navigate("Create");
+              }
+            },
+            (_, error) => {
+              console.log(error);
+            }
+          );
+        });
+      })
+      .catch((e) => console.log(e));
 
+    //
+  };
 
   return (
       <KeyboardAvoidingView style={[styles.contenu]}>
@@ -27,7 +66,7 @@ const AuthScreen = ({ navigation }) => {
             password={true}
             secureTextEntry={true}
           />
-          <ButtonComponent label="Access Journal" onPress={() => navigation.navigate('Entries')} />
+          <ButtonComponent label="Access Journal" onPress={() => handleLoginPress()} />
         </View>
       </KeyboardAvoidingView>
   );

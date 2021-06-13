@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Image, StyleSheet, View, KeyboardAvoidingView, Text } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  View,
+  KeyboardAvoidingView,
+  Text,
+} from "react-native";
 import colors, { dimmer } from "../config/colors";
 // import { useDispatch, useSelector, connect } from "react-redux";
 import ButtonComponent from "../components/ButtonComponent";
 import FormTextInput from "../components/FormTextInputComponent";
 import imageLogo from "../../assets/quester_flower_transparent.png";
-import * as SecureStore from 'expo-secure-store';
 import { CONSTANTS, JSHash } from "react-native-hash";
 // import { userActions } from "../actions/index";
 // import {
@@ -17,41 +22,60 @@ import { CONSTANTS, JSHash } from "react-native-hash";
 // import ThemeComponent from "../components/ThemeComponent";
 // import { loadingActions } from "../actions/loadingActions";
 
+// import * as SQLite from "expo-sqlite";
+// //opening the sqlite database
+// const db = SQLite.openDatabase("quester.db");
+
+import db from "../Database";
+
 const FirstScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
     navigation.addListener("focus", () => {
+      console.log("focus");
       //check on init
       //if pwd exists redirect to  authscreen
-      let result = SecureStore.getItemAsync("pwd").then(
-        (result) => {
-          if (result) {
-            alert(" Here's your value \n" + result);
-            navigation.navigate("Login");
-          } else {
-            alert("No values stored under that key.");
+      db.transaction((tx) => {
+        tx.executeSql(
+          `select * from passwords;`,
+          [],
+          (_, { rows: { _array } }) => {
+            //setPassword(_array[0])
+            if (_array[0]) {
+              console.log("end of transaction getting passwords");
+              console.log(_array[0]);
+              //alert("the pass is:" + _array[0].password);
+              navigation.navigate("Login");
+            } else {
+              alert("No password found, please create a journal.")
+            }
+          },
+          (_, error) => {
+            console.log(error);
           }
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+        );
+      });
     });
   }, [navigation]);
 
   handleCreatePress = () => {
     console.log("create pressed");
     //hash password
-    JSHash("message", CONSTANTS.HashAlgorithms.sha256)
+    JSHash(password, CONSTANTS.HashAlgorithms.sha256)
       .then((hash) => {
         console.log(hash);
-        //save hash in local storage
-        SecureStore.setItemAsync("pwd", hash).then((response) => {
-          //reroute to entries
-          navigation.navigate("Entries");
-        }),
-          (error) => console.log(error);
+        //save hash in database
+        db.transaction((tx) => {
+          tx.executeSql(
+            `insert into passwords (password) values ( ? );`,
+            [hash],
+            (_, { rows: { _array } }) => {
+              console.log("pass should be inserted as " + hash);
+              navigation.navigate("Entries");
+            }
+          );
+        });
       })
       .catch((e) => console.log(e));
 
@@ -73,7 +97,7 @@ const FirstScreen = ({ navigation }) => {
         />
         <ButtonComponent
           label="Create Journal"
-          onPress={() => navigation.navigate("Entries")}
+          onPress={() => handleCreatePress()}
         />
       </View>
     </KeyboardAvoidingView>
