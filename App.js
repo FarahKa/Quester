@@ -12,6 +12,7 @@ import ModifyScreen from "./src/screen/ModifyScreen";
 
 //import * as SQLite from 'expo-sqlite';
 import db from "./src/Database";
+import PushNotifs from "./src/screen/PushNotif";
 
 //opening the sqlite database
 //const db = SQLite.openDatabase("quester.db");
@@ -90,6 +91,7 @@ export default function App() {
         <Stack.Screen name="Entries" component={EntriesScreen} />
         <Stack.Screen name="Entry" component={EntryScreen} />
         <Stack.Screen name="Modify" component={ModifyScreen} />
+        <Stack.Screen name="PushNotif" component={PushNotifs} />
       </Stack.Navigator>
     </NavigationContainer>
   );
