@@ -8,6 +8,7 @@ import colors from "./src/config/colors";
 import EntriesScreen from "./src/screen/EntriesScreen";
 import EntryScreen from "./src/screen/EntryScreen";
 import FirstScreen from "./src/screen/FirstScreen";
+import ModifyScreen from "./src/screen/ModifyScreen";
 
 //import * as SQLite from 'expo-sqlite';
 import db from "./src/Database";
@@ -88,6 +89,7 @@ export default function App() {
         <Stack.Screen name="Login" component={AuthScreen} />
         <Stack.Screen name="Entries" component={EntriesScreen} />
         <Stack.Screen name="Entry" component={EntryScreen} />
+        <Stack.Screen name="Modify" component={ModifyScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -267,26 +267,28 @@ const EntriesScreen = ({ navigation }) => {
 
   // // reset login status
   useEffect(() => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        `select * from entries;`,
-        [],
-        (_, { rows: { _array } }) => {
-          //setPassword(_array[0])
-          if (_array[0]) {
-            console.log("entries:")
-            console.log(_array)
-            setEntries(_array)
-          } else {
-            navigation.navigate("Entry");
+    const unsubscribe = navigation.addListener("focus", () => {
+      db.transaction((tx) => {
+        tx.executeSql(
+          `select * from entries;`,
+          [],
+          (_, { rows: { _array } }) => {
+            //setPassword(_array[0])
+            if (_array[0]) {
+              console.log("entries:");
+              console.log(_array);
+              setEntries(_array);
+            } else {
+              setEntries([]);
+            }
+          },
+          (_, error) => {
+            console.log(error);
           }
-        },
-        (_, error) => {
-          console.log(error);
-        }
-      );
+        );
+      });
     });
-  }, []);
+  }, [navigation]);
 
   return (
     <View style={[styles.contenu]}>
@@ -310,7 +312,11 @@ const EntriesScreen = ({ navigation }) => {
             return (
               <ButtonComponent
                 label={label}
-                onPress={() => navigation.navigate("Entry")}
+                onPress={() => {
+                  console.log("pressed item:");
+                  console.log(item);
+                  navigation.navigate("Modify", item);
+                }}
               />
             );
           }}
