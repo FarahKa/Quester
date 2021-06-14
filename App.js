@@ -32,7 +32,10 @@ export default function App() {
     // console.log("creating tables")
     // db.transaction(tx => {
     //   tx.executeSql(
-    //     'drop table questions;'
+    //     'drop table passwords;',
+    //     [],
+    //     (_, transaction) => console.log("success deleting passwords table"),
+    //     (_, error) => console.log("error:" + error)
     //   );
     // });
     // db.transaction(tx => {
